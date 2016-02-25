@@ -38,27 +38,41 @@ int LIS(int array[], int length){
 	return max;
 }
 
+void print_LIS(int array[], int index, int lis, int dp[]);
+
 int LIS_DP(int array[], int length){
 	int record[length];
 	fill(record, record + length, 1);
-
+	int max = 1; 
+	
 	for(int i = 0; i < length; i++){
 		for(int j = 0; j < i; j++){
 			if (array[j] < array[i] && record[j] + 1 > record[i]){
 				record[i] = record[j] + 1;
 			}
 		}
-	}
-
-	int max = 1; 
-	for(int i = 0; i < length; i++){
 		if (record[i] > max)
 			max = record[i];
 	}
-
+	print_LIS(array, length -1, max, record);
 	return max;
 }
 
+void print_LIS(int array[], int index, int lis, int dp[]){
+	bool isLIS = 0;
+	if(index < 0 || lis == 0)
+		return;
+	if(dp[index] == lis){
+		--lis;
+		isLIS = 1;
+	}
+							 
+	print_LIS(array,--index, lis, dp);
+							      
+	if(isLIS){
+		printf("the %d in LIS is %d\n",lis+1, array[index+1]);
+	}
+}
 int main(){
 	int a[] = { 10, 22, 9, 33, 21, 50, 41, 60 };
 	int n = sizeof(a)/sizeof(int);
