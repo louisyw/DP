@@ -38,6 +38,7 @@ int LIS(int array[], int length){
 	return max;
 }
 
+//dynalic programming
 void print_LIS(int array[], int index, int lis, int dp[]);
 
 int LIS_DP(int array[], int length){
